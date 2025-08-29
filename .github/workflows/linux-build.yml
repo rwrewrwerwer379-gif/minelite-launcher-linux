@@ -1,4 +1,4 @@
-name: Linux Build
+name: Cross-platform Build
 
 on:
   push:
@@ -33,9 +33,12 @@ jobs:
 
       - name: Build Linux artifacts (AppImage, deb)
         run: npm run dist:linux
+
+      - name: Publish Linux artifacts to Release (on tag)
+        if: startsWith(github.ref, 'refs/tags/')
+        run: npx electron-builder --linux AppImage deb --publish always
         env:
-          # Eğer release yayınlamak isterseniz GH_TOKEN ekleyin ve aşağıdaki publish adımını açın
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload dist artifacts
         uses: actions/upload-artifact@v4
@@ -49,3 +52,33 @@ jobs:
       #   run: npx electron-builder --linux AppImage deb --publish always
       #   env:
       #     GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+
+      - name: Install dependencies (clean)
+        run: npm ci
+
+      - name: Build Windows NSIS installer (.exe)
+        run: npx electron-builder --win --x64 --publish=never
+
+      - name: Upload dist artifacts (Windows)
+        uses: actions/upload-artifact@v4
+        with:
+          name: win-dist
+          path: |
+            dist/*.exe
+      
+      - name: Publish Windows installer to Release (on tag)
+        if: startsWith(github.ref, 'refs/tags/')
+        run: npx electron-builder --win --x64 --publish always
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
