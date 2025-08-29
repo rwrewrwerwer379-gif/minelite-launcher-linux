@@ -3,12 +3,12 @@ name: Cross-platform Build
 on:
   push:
     branches: [ main ]
-    paths:
-      - 'src/**'
-      - 'package.json'
-      - 'package-lock.json'
-      - '.github/workflows/linux-build.yml'
+    tags:
+      - 'v*'
   workflow_dispatch: {}
+
+permissions:
+  contents: write
 
 jobs:
   build-linux:
@@ -33,12 +33,6 @@ jobs:
 
       - name: Build Linux artifacts (AppImage, deb)
         run: npm run dist:linux
-
-      - name: Publish Linux artifacts to Release (on tag)
-        if: startsWith(github.ref, 'refs/tags/')
-        run: npx electron-builder --linux AppImage deb --publish always
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload dist artifacts
         uses: actions/upload-artifact@v4
@@ -77,8 +71,31 @@ jobs:
           path: |
             dist/*.exe
       
-      - name: Publish Windows installer to Release (on tag)
-        if: startsWith(github.ref, 'refs/tags/')
-        run: npx electron-builder --win --x64 --publish always
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  
+  release:
+    name: Create GitHub Release (tag push)
+    needs: [build-linux, build-windows]
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download Linux artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: linux-dist
+          path: ./linux-dist
+
+      - name: Download Windows artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: win-dist
+          path: ./win-dist
+
+      - name: Create Release and upload assets
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            linux-dist/*.AppImage
+            linux-dist/*.deb
+            win-dist/*.exe
