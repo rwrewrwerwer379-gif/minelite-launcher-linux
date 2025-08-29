@@ -16,8 +16,8 @@
     "build": "electron-builder --dir",
     "dist": "electron-builder --win --x64",
     "pack:win": "electron-builder --win nsis",
-    "dist:linux": "electron-builder --linux AppImage deb",
-    "pack:linux": "electron-builder --linux AppImage"
+    "dist:linux": "electron-builder --linux AppImage deb --publish=never",
+    "pack:linux": "electron-builder --linux AppImage --publish=never"
   },
   "dependencies": {
     "electron-store": "^9.0.0",
