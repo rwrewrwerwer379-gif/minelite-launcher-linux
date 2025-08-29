@@ -4,7 +4,10 @@
   "private": true,
   "description": "Simple, fast Minecraft launcher with basic mod downloader (Modrinth)",
   "main": "src/main.js",
-  "author": "",
+  "author": {
+    "name": "rwrewrwerwer379",
+    "email": "rwrewrwerwer379@gmail.com"
+  },
   "license": "MIT",
   "scripts": {
     "start": "electron .",
@@ -61,7 +64,8 @@
         }
       ],
       "category": "Game",
-      "icon": "build/icon.png"
+      "icon": "build/icon.png",
+      "maintainer": "rwrewrwerwer379 <rwrewrwerwer379@gmail.com>"
     },
     "files": [
       "src/**/*",
