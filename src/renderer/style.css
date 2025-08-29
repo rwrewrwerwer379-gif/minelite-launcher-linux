@@ -1,0 +1,38 @@
+* { box-sizing: border-box; }
+body {
+  margin: 0; padding: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; color: #e6e6e6; background: #14171a;
+}
+header, footer { padding: 12px 16px; background: #0f1113; border-bottom: 1px solid #23272a; }
+footer { border-top: 1px solid #23272a; border-bottom: none; color: #9aa0a6; }
+
+.tabs { display: flex; gap: 8px; margin-top: 8px; }
+.tabs .tab-btn { background: #1f242a; border: 1px solid #2a2f35; padding: 6px 10px; border-radius: 6px; color: #cbd5e1; }
+.tabs .tab-btn.active { background: #2563eb; border-color: #1d4ed8; color: #fff; }
+.hidden { display: none; }
+
+h1 { margin: 0; font-size: 20px; }
+main { display: grid; grid-template-columns: 1fr; gap: 12px; padding: 12px; max-width: 1100px; margin: 0 auto; }
+
+.card { background: #1c2126; border: 1px solid #2a2f35; border-radius: 8px; padding: 12px; }
+.card h2 { margin-top: 0; font-size: 16px; color: #cbd5e1; }
+
+.row { display: flex; align-items: center; gap: 8px; margin: 6px 0; }
+.row label { width: 140px; color: #c0c6cc; }
+.row input, .row select { flex: 1; padding: 8px; border-radius: 6px; border: 1px solid #2a2f35; background: #121417; color: #e6e6e6; }
+.inline { display: flex; gap: 8px; width: 100%; }
+
+button { padding: 8px 12px; border: 1px solid #2a2f35; background: #232a31; color: #e6e6e6; border-radius: 6px; cursor: pointer; }
+button.primary { background: #2563eb; border-color: #1d4ed8; }
+button.danger { background: #ef4444; border-color: #dc2626; }
+button:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.progress { height: 8px; background: #0f1113; border: 1px solid #2a2f35; border-radius: 6px; overflow: hidden; margin-top: 8px; }
+#progressBar { height: 100%; width: 0%; background: linear-gradient(90deg,#22c55e,#16a34a); transition: width .2s ease; }
+
+.list { list-style: none; padding: 0; margin: 0; max-height: 260px; overflow: auto; }
+.list li { display: flex; gap: 8px; justify-content: space-between; align-items: center; padding: 8px; border-bottom: 1px solid #2a2f35; }
+.list li .meta { flex: 1; }
+.list li .meta .title { font-weight: 600; }
+.list li .meta .desc { font-size: 12px; color: #9aa0a6; }
+
+#log { width: 100%; background: #0f1113; color: #d1d5db; border: 1px solid #2a2f35; border-radius: 8px; padding: 8px; }

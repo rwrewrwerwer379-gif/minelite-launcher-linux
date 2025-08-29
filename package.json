@@ -1,0 +1,78 @@
+{
+  "name": "minelite-launcher",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Simple, fast Minecraft launcher with basic mod downloader (Modrinth)",
+  "main": "src/main.js",
+  "author": "",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron .",
+    "postinstall": "node -e \"try{require('fs').mkdirSync('data',{recursive:true})}catch(e){}\"",
+    "build": "electron-builder --dir",
+    "dist": "electron-builder --win --x64",
+    "pack:win": "electron-builder --win nsis",
+    "dist:linux": "electron-builder --linux AppImage deb",
+    "pack:linux": "electron-builder --linux AppImage"
+  },
+  "dependencies": {
+    "electron-store": "^9.0.0",
+    "minecraft-launcher-core": "^3.17.0",
+    "electron-updater": "^6.1.8"
+  },
+  "devDependencies": {
+    "electron": "^30.0.0",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.minelite.launcher",
+    "productName": "MineLite Launcher",
+    "directories": {
+      "buildResources": "build",
+      "output": "dist"
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "rwrewrwerwer379-gif",
+        "repo": "minelite-launcher-linux",
+        "vPrefixedTagName": false
+      }
+    ],
+    "win": {
+      "icon": "build/icon.ico",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "linux": {
+      "target": [
+        {
+          "target": "AppImage"
+        },
+        {
+          "target": "deb"
+        }
+      ],
+      "category": "Game",
+      "icon": "build/icon.png"
+    },
+    "files": [
+      "src/**/*",
+      "package.json"
+    ],
+    "asar": true,
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": false,
+      "deleteAppDataOnUninstall": false
+    }
+  }
+}

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MineLite Launcher</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+      <h1>MineLite Launcher</h1>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <button id="btnDiscord">Discord'a Katıl</button>
+        <button id="btnCheckUpdates">Güncellemeleri kontrol et</button>
+      </div>
+    </div>
+    <nav class="tabs">
+      <button class="tab-btn active" data-target="#tab-settings">Ayarlar</button>
+      <button class="tab-btn" data-target="#tab-mods">Modlar</button>
+      <button class="tab-btn" data-target="#tab-console">Konsol</button>
+      <button class="tab-btn" data-target="#tab-comments">Yorumlar</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="card" id="tab-settings">
+      <h2>Oyun Ayarları</h2>
+      <div class="row">
+        <label>Kullanıcı adı</label>
+        <input id="username" placeholder="Player" />
+      </div>
+      <div class="row">
+        <label>Sürüm</label>
+        <select id="versionSelect"></select>
+      </div>
+      <div class="row">
+        <label>Yükleyici</label>
+        <select id="loader">
+          <option value="fabric">Fabric</option>
+          <option value="forge">Forge</option>
+          <option value="quilt">Quilt</option>
+          <option value="">Vanilla</option>
+        </select>
+      </div>
+      <div class="row">
+        <label>Instance klasörü</label>
+        <div class="inline">
+          <input id="instanceDir" readonly />
+          <button id="btnChooseInstance">Seç</button>
+        </div>
+      </div>
+      <div class="row">
+        <label>Java yolu</label>
+        <div class="inline">
+          <input id="javaPath" readonly />
+          <button id="btnChooseJava">Seç</button>
+        </div>
+      </div>
+      <div class="row buttons">
+        <button id="btnLaunch" class="primary">Başlat</button>
+        <button id="btnStop" class="danger">Durdur</button>
+      </div>
+      <div class="progress">
+        <div id="progressBar"></div>
+      </div>
+    </section>
+
+    <section class="card hidden" id="tab-mods">
+      <h2>Popüler Modlar (Modrinth)</h2>
+      <div class="row">
+        <button id="btnRefreshMods">Yenile</button>
+        <button id="btnOpenMods">Mods klasörünü aç</button>
+        <small>İndirilen .jar dosyaları `mods/` klasörüne kaydedilir.</small>
+      </div>
+      <ul id="modsList" class="list"></ul>
+    </section>
+
+    <section class="card hidden" id="tab-console">
+      <h2>Günlük</h2>
+      <textarea id="log" rows="10" readonly></textarea>
+    </section>
+
+    <section class="card hidden" id="tab-comments">
+      <h2>Kullanıcı Yorumları</h2>
+      <div class="row">
+        <label>Ad</label>
+        <input id="cAuthor" placeholder="Adınız (opsiyonel)" />
+      </div>
+      <div class="row">
+        <label>Yorum</label>
+        <textarea id="cText" rows="3" placeholder="Görüşünüzü yazın..."></textarea>
+      </div>
+      <div class="row buttons">
+        <button id="btnAddComment" class="primary">Yorumu Gönder</button>
+      </div>
+      <ul id="commentsList" class="list"></ul>
+    </section>
+  </main>
+
+  
+
+  <script src="app.js"></script>
+</body>
+</html>
